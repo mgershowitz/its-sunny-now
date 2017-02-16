@@ -18,8 +18,7 @@ module.exports = {
     _db.any(`
       SELECT *
       FROM episodes
-      WHERE day = ${today};
-      `)
+      WHERE day = $1`, [today])
     .then(episode => {
       res.episode = episode;
       next();
