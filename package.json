@@ -1,0 +1,19 @@
+{
+  "name": "its-sunny-now",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mgershowitz/its-sunny-now.git"
+  },
+  "author": "Matt Gershowitz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mgershowitz/its-sunny-now/issues"
+  },
+  "homepage": "https://github.com/mgershowitz/its-sunny-now#readme"
+}
