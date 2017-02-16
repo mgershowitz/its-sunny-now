@@ -1,4 +1,5 @@
 'use strict'
+const dotenv = require( 'dotenv' ).config();
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -12,15 +13,11 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'views', 'index.html'))
+    res.sendFile(path.resolve(__dirname, 'views', 'index.html'))
 });
 
 app.get('/api', itsSunnyNow, (req, res) =>{
   res.json(res.episode);
 });
 
-app.listen(port, ()=>{ console.log(`server is doing its thang at ${port}`) });
-
-
-
-
+app.listen(port, () => { console.log(`server is doing its thang at ${port}`) });
