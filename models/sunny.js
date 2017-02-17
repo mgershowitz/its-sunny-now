@@ -1,4 +1,6 @@
 const pg = require('pg-promise')({});
+const moment = require('moment');
+const fetch = require('node-fetch');
 
 const config = process.env.DATABASE_URL || {
     host: process.env.DB_HOST,
@@ -14,13 +16,34 @@ module.exports = {
 
   //uses the current time to select the closest episode
   itsSunnyNow(req, res, next) {
-    let today = new Date().getDay();
+    let now = new Date();
+    let day = now.getDay();
+    //parses the time string from now to display military time
+    let time = moment(now).format().split('T')[1].split('-')[0];
+    console.log(time);
     _db.any(`
-      SELECT *
+      SELECT imdb_id
       FROM episodes
-      WHERE day = $1`, [today])
+      WHERE day = $1`, [day])
     .then(episode => {
-      res.episode = episode;
+      res.id = episode[0];
+      next();
+    })
+    .catch(error => {
+      console.error('Error ', error);
+      res.error = error;
+      next();
+    })
+
+  },
+
+  //uses the imdb_id retrieved from the psql DB to fetch from omdbapi to retrieve the rest of the data for display
+  getEpisode(req, res, next) {
+    let imdbId = res.id.imdb_id;
+    fetch(`http://www.omdbapi.com/?i=${imdbId}`)
+    .then(r=>r.json())
+    .then(epp => {
+      res.episode = epp;
       next();
     })
     .catch(error => {
@@ -31,3 +54,17 @@ module.exports = {
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

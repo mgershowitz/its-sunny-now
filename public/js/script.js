@@ -4,42 +4,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const getEpisode = () => {
     let children = [];
-
+    //grabs any existing DOM children in the episode array and pushes them into children
     for(let i = 0; i < title.children.length; i++){
-      console.log(title.children[i]);
       children.push(title.children[i])
     }
-    console.log(children)
+    //Clears out all of the children inside of the episodes div to prevent duplicates
     children.forEach(child =>{
       title.removeChild(child)
     })
-
+    //grabs all the episodes that happen on today's day and appends the title, director, wirter, desc, and code
+    //I want to get the time to be a factor so that only one episode returns which is closests to now, but in the future.
     fetch('/api')
     .then(r => r.json())
-    .then(data => {
-      data.forEach(ep=>{
-        let epTitle = document.createElement('h4');
-        let epDirector = document.createElement('p');
-        let epWriter = document.createElement('p');
-        let epCode = document.createElement('p');
-        let epDesc = document.createElement('p');
-        epTitle.innerText = ep.title;
-        epDirector.innerText = ep.director;
-        epWriter.innerText = ep.writer;
-        epCode.innerText = `Season ${ep.season}, Episode ${ep.episode}`;
-        epDesc.innerText = ep.description;
-        title.appendChild(epTitle);
-        title.appendChild(epDesc);
-        title.appendChild(epDirector);
-        title.appendChild(epWriter);
-        title.appendChild(epCode);
-      })
+    .then(ep => {
+      let posterDiv = document.createElement('div');
+      let imgDiv = document.createElement('div');
+      let epTitle = document.createElement('h4');
+      let epImg = document.createElement('img');
+      let epDirector = document.createElement('p');
+      let epWriter = document.createElement('p');
+      let epCode = document.createElement('p');
+      let epPlot = document.createElement('p');
+      epTitle.innerText = ep.Title;
+      posterDiv.setAttribute('class', 'poster-container')
+      epImg.setAttribute('src', ep.Poster);
+      epImg.setAttribute('class', 'ep-img');
+      epDirector.innerText = ep.Director;
+      epWriter.innerText = ep.Writer;
+      epCode.innerText = `Season ${ep.Season}, Episode ${ep.Episode}`;
+      epPlot.innerText = ep.Plot;
+      title.appendChild(epTitle);
+      title.appendChild(posterDiv);
+      posterDiv.appendChild(imgDiv);
+      imgDiv.appendChild(epImg)
+      posterDiv.appendChild(epPlot);
+      title.appendChild(epDirector);
+      title.appendChild(epWriter);
+      title.appendChild(epCode);
+
     })
 
     }
 
 
-
+  //places event listener on the button. The magic making button
   let $button = document.querySelector('button');
   $button.addEventListener('click', getEpisode);
 
