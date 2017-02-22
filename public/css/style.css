@@ -42,7 +42,7 @@ button {
 
 .poster-container p {
   flex: 3;
-  margin-left: -23%;
+  /*margin-left: 20%;*/
   margin-right: 10%;
 }
 
@@ -106,19 +106,19 @@ button:hover {
   }
 
   #episode p{
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   .poster-container p {
     width: 40vw;
-    font-size: 2rem;
+    font-size: 2.2rem;
     flex:1;
     margin-left: 50px;
   }
 
   p {
     font-size: 3rem;
-    width: 100%;
+    width: 90%;
   }
 
   button, select {
