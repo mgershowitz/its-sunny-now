@@ -130,8 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
   //places event listener on the button. The magic making button
   let $button = document.querySelector('#now');
   let $laterButton = document.querySelector('#later');
-  $button.addEventListener('click touchstart', renderEpisode);
-  $laterButton.addEventListener('click touchstart', renderLaterEpisode);
+  $button.addEventListener('click', renderEpisode);
+  $button.addEventListener('click', renderEpisode);
+  $laterButton.addEventListener('touchstart', renderLaterEpisode);
+  $laterButton.addEventListener('touchstart', renderLaterEpisode);
 
 })
 
