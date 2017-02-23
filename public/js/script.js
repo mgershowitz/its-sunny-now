@@ -132,9 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let $button = document.querySelector('#now');
   let $laterButton = document.querySelector('#later');
   $button.addEventListener('click', renderEpisode);
-  $button.addEventListener('touchstart', renderEpisode);
   $laterButton.addEventListener('click', renderLaterEpisode);
-  $laterButton.addEventListener('touchstart', renderLaterEpisode);
 
 })
 
