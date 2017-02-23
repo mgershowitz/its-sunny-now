@@ -85,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const renderEpisode = () => {
-    console.log('click');
     let children = [];
     //grabs any existing DOM children in the episode array and pushes them into children
     for(let i = 0; i < title.children.length; i++){
