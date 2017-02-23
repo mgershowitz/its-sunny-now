@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const renderEpisode = () => {
+    console.log('click');
     let children = [];
     //grabs any existing DOM children in the episode array and pushes them into children
     for(let i = 0; i < title.children.length; i++){
@@ -130,9 +131,9 @@ document.addEventListener('DOMContentLoaded', () => {
   //places event listener on the button. The magic making button
   let $button = document.querySelector('#now');
   let $laterButton = document.querySelector('#later');
-  // $button.addEventListener('click', renderEpisode);
+  $button.addEventListener('click', renderEpisode);
   $button.addEventListener('touchstart', renderEpisode);
-  // $laterButton.addEventListener('click', renderLaterEpisode);
+  $laterButton.addEventListener('click', renderLaterEpisode);
   $laterButton.addEventListener('touchstart', renderLaterEpisode);
 
 })
