@@ -26,12 +26,10 @@ module.exports = {
               .find({ "day": tomorrow })
               .sort({ "time": 1 })
               .toArray((err, episode) => {
-                console.log(episode);
                 res.episode = episode[0].imdb_id;
                 next();
               })
           } else {
-            console.log(episode);
             res.episode = episode[0].imdb_id;
             next();
           }
@@ -40,7 +38,6 @@ module.exports = {
   },
 
   itsSunnyLater: (req, res, next) => {
-    console.log(req.query.day);
     let today = 0;
     switch(req.query.day){
       case 'Monday': today = 1;
@@ -57,18 +54,15 @@ module.exports = {
         break;
 
     }
-    console.log(today)
     //makes tomorrow or sunday if there are no more episodes in the day
     let tomorrow = today === 6 ? 1 : today + 1 ;
     //parses the time string from now to display military time
     let timeLater = req.query.ampm === 'AM' ? `${req.query.hour}:${req.query.minute}:00` : `${parseInt(req.query.hour) + 12}:${req.query.minute}:00`
-    console.log(timeLater);
     MongoClient.connect(dbConnection, (err, db) => {
       db.collection('episodes')
         .find({$and: [ { "day": today }, {"time": { $gte: timeLater } } ] })
         .sort({ "time": 1 })
         .toArray((err, episode) => {
-          console.log(episode);
           if(typeof episode[0] === 'undefined'){
             db.collection('episodes')
               .find({ "day": tomorrow })

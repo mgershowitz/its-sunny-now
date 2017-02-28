@@ -33,6 +33,7 @@ button {
 .poster-container{
   display: flex;
 
+  margin-bottom: 15vh;
   /*justify-content: flex-start;*/
 }
 

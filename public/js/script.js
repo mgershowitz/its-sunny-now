@@ -118,8 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
         minute: minute.value,
         amPm: amPm.value
       }
-      console.log(time);
-      console.log(dayList.value);
       fetch(`/apiLater?day=${time.day}&hour=${time.hour}&minute=${time.minute}&ampm=${time.amPm}`)
       .then(r => r.json())
       .then(episode => renderIDMBData(episode))
