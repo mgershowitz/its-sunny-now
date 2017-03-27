@@ -68,8 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let epPlot = document.createElement('p');
     epTitle.innerText = ep.Title;
     posterDiv.setAttribute('class', 'poster-container')
-    epImg.setAttribute('src', ep.Poster);
-    epImg.setAttribute('alt', 'http://i.imgur.com/iL60ueb.jpg?1');
+    epImg.setAttribute('src', ep.Poster || 'http://i.imgur.com/iL60ueb.jpg?1');
+
     epImg.setAttribute('class', 'ep-img');
     epDirector.innerText = `Directed by ${ep.Director}`;
     epWriter.innerText = `Writtem by ${ep.Writer}`;
