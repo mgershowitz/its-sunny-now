@@ -3,7 +3,7 @@
 const { MongoClient } = require('mongodb');
 const dbConnection = process.env['MONGODB_URI'] || 'mongodb://localhost:27017/iasip';
 const moment = require('moment');
-const fetch = require('node-fetch');
+const axios = require('axios');
 
 module.exports = {
 
@@ -79,13 +79,12 @@ module.exports = {
     })
   },
 
-  //uses the imdb_id retrieved from the psql DB to fetch from omdbapi to retrieve the rest of the data for display
+  //uses the imdb_id retrieved from the psql DB to axios.get from omdbapi to retrieve the rest of the data for display
   getEpisode(req, res, next) {
     let imdbId = res.episode;
-    fetch(`http://www.omdbapi.com/?i=${imdbId}`)
-    .then(r=>r.json())
+    axios.get(`http://www.omdbapi.com/?i=${imdbId}`)
     .then(epp => {
-      res.episode = epp;
+      res.episode = epp.data;
       next();
     })
     .catch(error => {
@@ -97,10 +96,9 @@ module.exports = {
 
   //returns all the imdb id's for a requested season
   getSeason(req, res, next) {
-    fetch(`http://www.omdbapi.com/?i=tt0472954&Season=${req.params.season}`)
-    .then(r=>r.json())
+    axios.get(`http://www.omdbapi.com/?i=tt0472954&Season=${req.params.season}`)
     .then(epp => {
-      res.season = epp.Episodes.map(ep=>{ return ep.imdbID });
+      res.season = epp.data.Episodes.map(ep=>{ return ep.imdbID });
       next();
     })
     .catch(error => {
