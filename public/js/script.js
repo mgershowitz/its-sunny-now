@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     epTitle.innerText = ep.Title;
     posterDiv.setAttribute('class', 'poster-container')
     epImg.setAttribute('src', ep.Poster);
+    epImg.setAttribute('alt', 'http://i.imgur.com/iL60ueb.jpg?1');
     epImg.setAttribute('class', 'ep-img');
     epDirector.innerText = `Directed by ${ep.Director}`;
     epWriter.innerText = `Writtem by ${ep.Writer}`;
@@ -95,9 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
       title.removeChild(child)
     })
     //grabs all the episodes that happen on today's day and appends the title, director, wirter, desc, and code
-    fetch('/api')
-    .then(r => r.json())
-    .then(episode => renderIDMBData(episode))
+    axios.get('/api')
+    .then(episode => renderIDMBData(episode.data))
 
   }
 
@@ -118,9 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
         minute: minute.value,
         amPm: amPm.value
       }
-      fetch(`/apiLater?day=${time.day}&hour=${time.hour}&minute=${time.minute}&ampm=${time.amPm}`)
-      .then(r => r.json())
-      .then(episode => renderIDMBData(episode))
+      axios.get(`/apiLater?day=${time.day}&hour=${time.hour}&minute=${time.minute}&ampm=${time.amPm}`)
+      .then(episode => renderIDMBData(episode.data))
 
   }
 
